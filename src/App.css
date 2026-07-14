@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #141414;
+  color: white;
+}
+
+nav {
+  background: #1f1f1f;
+  padding: 18px 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav h2 {
+  margin: 0;
+}
+
+nav div {
+  display: flex;
+  gap: 24px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+nav a:hover {
+  color: #e50914;
+}
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-size: 42px;
+}
+
+p {
+  font-size: 20px;
+  color: #bbbbbb;
+}
