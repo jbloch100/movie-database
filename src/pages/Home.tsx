@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import type { Movie } from "../types/Movie";
-import { getPopularMovies } from "../services/tmdb";
+import { getPopularMovies, searchMovies } from "../services/tmdb";
 import MovieCard from "../components/MovieCard";
 
 function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     async function loadMovies() {
@@ -16,10 +17,33 @@ function Home() {
     loadMovies();
   }, []);
 
+  async function handleSearch(e: React.FormEvent) {
+    e.preventDefault();
+
+    if (!searchTerm.trim()) {
+      const popularMovies = await getPopularMovies();
+      setMovies(popularMovies);
+      return;
+    }
+
+    const results = await searchMovies(searchTerm);
+    setMovies(results);
+  }
+
   return (
     <main>
       <h1>Movie Database</h1>
       <p>Discover popular movies and search for your favorites.</p>
+      <form className="movie-search" onSubmit={handleSearch}>
+        <input
+          type="text"
+          placeholder="Search for a movie"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+
+        <button type="submit">Search</button>
+      </form>
       <section className="movie-grid">
         {movies.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />

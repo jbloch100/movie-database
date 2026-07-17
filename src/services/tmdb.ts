@@ -21,3 +21,25 @@ export async function getPopularMovies(): Promise<Movie[]> {
 
   return data.results;
 }
+
+export async function searchMovies(query: string): Promise<Movie[]> {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
+      query
+    )}`,
+    {
+      headers: {
+        Authorization: `Bearer ${TMDB_TOKEN}`,
+        accept: "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to search movies.");
+  }
+
+  const data = await response.json();
+
+  return data.results;
+}
