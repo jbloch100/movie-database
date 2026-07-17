@@ -89,3 +89,41 @@ p {
   margin: 8px 0;
   color: #d1d1d1;
 }
+
+.movie-search {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 28px 0 36px;
+  flex-wrap: wrap;
+}
+
+.movie-search input {
+  width: min(420px, 100%);
+  padding: 14px 16px;
+  border: 1px solid #555;
+  border-radius: 10px;
+  background: #252525;
+  color: white;
+  font-size: 17px;
+}
+
+.movie-search input::placeholder {
+  color: #aaa;
+}
+
+.movie-search button {
+  padding: 14px 24px;
+  border: none;
+  border-radius: 10px;
+  background: #e50914;
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.movie-search button:hover {
+  background: #b20710;
+  transform: translateY(-2px);
+}

@@ -2,9 +2,11 @@ import type { Movie } from "../types/Movie";
 
 type MovieCardProps = {
   movie: Movie;
+  buttonText: string;
+  onButtonClick: (movie: Movie) => void;
 };
 
-function MovieCard({ movie }: MovieCardProps) {
+function MovieCard({ movie, buttonText, onButtonClick }: MovieCardProps) {
   const posterUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : null;
@@ -25,6 +27,10 @@ function MovieCard({ movie }: MovieCardProps) {
         <p>
           📅 {movie.release_date || "Release date unavailable"}
         </p>
+
+        <button onClick={() => onButtonClick(movie)}>
+          {buttonText}
+        </button>
       </div>
     </article>
   );

@@ -30,6 +30,29 @@ function Home() {
     setMovies(results);
   }
 
+  function handleAddToFavorites(movie: Movie) {
+    const savedFavorites = localStorage.getItem("favoriteMovies");
+
+    const favorites: Movie[] = savedFavorites
+      ? JSON.parse(savedFavorites)
+      : [];
+
+    const movieAlreadyAdded = favorites.some(
+      (favoriteMovie) => favoriteMovie.id === movie.id
+    );
+
+    if (movieAlreadyAdded) {
+      return;
+    }
+
+    const updatedFavorites = [...favorites, movie];
+
+    localStorage.setItem(
+      "favoriteMovies",
+      JSON.stringify(updatedFavorites)
+    );
+  }
+
   return (
     <main>
       <h1>Movie Database</h1>
@@ -46,7 +69,12 @@ function Home() {
       </form>
       <section className="movie-grid">
         {movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+          <MovieCard 
+            key={movie.id} 
+            movie={movie} 
+            buttonText="❤️ Add to Favorites"
+            onButtonClick={handleAddToFavorites} 
+          />
         ))}
       </section>
     </main>
