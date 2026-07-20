@@ -43,3 +43,21 @@ export async function searchMovies(query: string): Promise<Movie[]> {
 
   return data.results;
 }
+
+export async function getMovieDetails(id: string): Promise<Movie> {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${TMDB_TOKEN}`,
+        accept: "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch movie details.");
+  }
+
+  return response.json();
+}

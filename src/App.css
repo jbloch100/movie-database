@@ -127,3 +127,12 @@ p {
   background: #b20710;
   transform: translateY(-2px);
 }
+
+.movie-card-content h2 a {
+  color: white;
+  text-decoration: none;
+}
+
+.movie-card-content h2 a:hover {
+  text-decoration: underline;
+}

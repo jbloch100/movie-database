@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import type { Movie } from "../types/Movie";
 
 type MovieCardProps = {
@@ -20,7 +21,11 @@ function MovieCard({ movie, buttonText, onButtonClick }: MovieCardProps) {
       )}
 
       <div className="movie-card-content">
-        <h2>{movie.title}</h2>
+        <h2>
+          <Link to={`/movie/${movie.id}`}>
+            {movie.title}
+          </Link>
+        </h2>
 
         <p>⭐ {movie.vote_average.toFixed(1)}</p>
 
