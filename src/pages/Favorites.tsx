@@ -1,29 +1,19 @@
 import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
+import { getFavorites, removeFromFavorites } from "../services/favorites";
 import type { Movie } from "../types/Movie";
 
 function Favorites() {
   const [favorites, setFavorites] = useState<Movie[]>([]);
 
   useEffect(() => {
-    const savedFavorites = localStorage.getItem("favoriteMovies");
-
-    if (savedFavorites) {
-      setFavorites(JSON.parse(savedFavorites));
-    }
+    setFavorites(getFavorites());
   }, []);
 
   function handleRemoveFromFavorites(movie: Movie) {
-    const updatedFavorites = favorites.filter(
-      (favoriteMovie) => favoriteMovie.id !== movie.id
-    );
+    removeFromFavorites(movie.id);
 
-    setFavorites(updatedFavorites);
-
-    localStorage.setItem(
-      "favoriteMovies",
-      JSON.stringify(updatedFavorites)
-    );
+    setFavorites(getFavorites());
   }
 
   return (

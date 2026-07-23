@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Movie } from "../types/Movie";
 import { getPopularMovies, searchMovies } from "../services/tmdb";
+import { addToFavorites } from "../services/favorites";
 import MovieCard from "../components/MovieCard";
 
 function Home() {
@@ -31,26 +32,7 @@ function Home() {
   }
 
   function handleAddToFavorites(movie: Movie) {
-    const savedFavorites = localStorage.getItem("favoriteMovies");
-
-    const favorites: Movie[] = savedFavorites
-      ? JSON.parse(savedFavorites)
-      : [];
-
-    const movieAlreadyAdded = favorites.some(
-      (favoriteMovie) => favoriteMovie.id === movie.id
-    );
-
-    if (movieAlreadyAdded) {
-      return;
-    }
-
-    const updatedFavorites = [...favorites, movie];
-
-    localStorage.setItem(
-      "favoriteMovies",
-      JSON.stringify(updatedFavorites)
-    );
+    addToFavorites(movie);
   }
 
   return (
