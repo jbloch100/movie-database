@@ -186,6 +186,13 @@ p {
   text-decoration: underline;
 }
 
+.error-message {
+  margin-top: 40px;
+  color: red;
+  font-size: 18px;
+  font-weight: 600;
+}
+
 @media (max-width: 700px) {
   .movie-details {
     flex-direction: column;

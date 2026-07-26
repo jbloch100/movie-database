@@ -8,17 +8,25 @@ function MovieDetails() {
   const { id } = useParams();
 
   const [movie, setMovie] = useState<Movie | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     async function loadMovieDetails() {
       if (!id) {
-        console.log("joker");
+        setErrorMessage("Movie ID is missing.");
         return;
       }
 
-      const selectedMovie = await getMovieDetails(id);
+      try {
+        setErrorMessage("");
 
-      setMovie(selectedMovie);
+        const selectedMovie = await getMovieDetails(id);
+
+        setMovie(selectedMovie);
+      } catch (error) {
+        console.error(error);
+        setErrorMessage("Unable to load movie details.");
+      }
     }
 
     loadMovieDetails();
@@ -30,6 +38,18 @@ function MovieDetails() {
     }
 
     addToFavorites(movie);
+  }
+
+  if (errorMessage) {
+    return (
+      <main>
+        <p className="error-message">{errorMessage}</p>
+
+        <Link className="back-link" to="/">
+          ← Back to Home
+        </Link>
+      </main>
+    );
   }
 
   if (!movie) {
