@@ -91,6 +91,36 @@ function MovieDetails() {
             📅 {movie.release_date || "Release date unavailable"}
           </p>
 
+          <p>
+            ⏱️ Runtime:{" "}
+            {movie.runtime ? `${movie.runtime} minutes` : "Unavailable"}
+          </p>
+
+          <p>
+            🎭 Genres:{" "}
+            {movie.genres?.length
+              ? movie.genres.map((genre) => genre.name).join(", ")
+              : "Unavailable"}
+          </p>
+
+          <p>
+            🌍 Original language:{" "}
+            {movie.original_language
+              ? movie.original_language.toUpperCase()
+              : "Unavailable"}
+          </p>
+
+          <p>
+            🎬 Status: {movie.status || "Unavailable"}
+          </p>
+
+          <p>
+            👥 Vote count:{" "}
+            {movie.vote_count !== undefined
+              ? movie.vote_count.toLocaleString()
+              : "Unavailable"}
+          </p>
+
           <p>{movie.overview || "No overview available."}</p>
 
           <button onClick={handleAddToFavorites}>
