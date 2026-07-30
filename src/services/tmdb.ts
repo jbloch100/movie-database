@@ -2,9 +2,9 @@ import type { Movie } from "../types/Movie";
 
 const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
 
-export async function getPopularMovies(): Promise<Movie[]> {
+export async function getPopularMovies(page: number = 1): Promise<Movie[]> {
   const response = await fetch(
-    "https://api.themoviedb.org/3/movie/popular",
+    `https://api.themoviedb.org/3/movie/popular?page=${page}`,
     {
       headers: {
         Authorization: `Bearer ${TMDB_TOKEN}`,
@@ -22,11 +22,11 @@ export async function getPopularMovies(): Promise<Movie[]> {
   return data.results;
 }
 
-export async function searchMovies(query: string): Promise<Movie[]> {
+export async function searchMovies(query: string, page: number = 1): Promise<Movie[]> {
   const response = await fetch(
     `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
       query
-    )}`,
+    )}&page=${page}`,
     {
       headers: {
         Authorization: `Bearer ${TMDB_TOKEN}`,

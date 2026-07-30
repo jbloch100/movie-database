@@ -9,6 +9,8 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [activeSearch, setActiveSearch] = useState("");
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     async function loadMovies() {
@@ -16,41 +18,34 @@ function Home() {
         setIsLoading(true);
         setErrorMessage("");
 
-        const popularMovies = await getPopularMovies();
+        const results = activeSearch
+          ? await searchMovies(activeSearch, page)
+          : await getPopularMovies(page);
 
-        setMovies(popularMovies);
+        setMovies(results);
       } catch (error) {
         console.error(error);
-        setErrorMessage("Unable to load movies.");
+
+        setErrorMessage(
+          activeSearch
+            ? "Unable to search movies."
+            : "Unable to load movies."
+        );
       } finally {
         setIsLoading(false);
       }
     }
 
     loadMovies();
-  }, []);
+  }, [page, activeSearch]);
 
   async function handleSearch(e: React.FormEvent) {
     e.preventDefault();
 
-    try {
-      setIsLoading(true);
-      setErrorMessage("");
+    const trimmedSearch = searchTerm.trim();
 
-      if (!searchTerm.trim()) {
-        const popularMovies = await getPopularMovies();
-        setMovies(popularMovies);
-        return;
-      }
-
-      const results = await searchMovies(searchTerm);
-      setMovies(results);
-    } catch (error) {
-      console.error(error);
-      setErrorMessage("Unable to search movies.");
-    } finally {
-      setIsLoading(false);
-    }
+    setPage(1);
+    setActiveSearch(trimmedSearch);
   }
 
   function handleAddToFavorites(movie: Movie) {
@@ -101,6 +96,20 @@ function Home() {
           />
         ))}
       </section>
+      <div className="pagination">
+        <button
+          onClick={() => setPage(page - 1)}
+          disabled={page === 1}
+        >
+          Previous
+        </button>
+
+        <span>Page {page}</span>
+
+        <button onClick={() => setPage(page + 1)}>
+          Next
+        </button>
+      </div>
     </main>
   );
 }
