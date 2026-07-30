@@ -9,6 +9,7 @@ import {
 import type { Genre } from "../types/Genre";
 import { addToFavorites } from "../services/favorites";
 import MovieCard from "../components/MovieCard";
+import type { MovieResponse } from "../types/MovieResponse";
 
 function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -17,6 +18,7 @@ function Home() {
   const [errorMessage, setErrorMessage] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [genres, setGenres] = useState<Genre[]>([]);
   const [selectedGenre, setSelectedGenre] = useState("");
 
@@ -26,17 +28,18 @@ function Home() {
         setIsLoading(true);
         setErrorMessage("");
 
-        let results: Movie[];
+        let response: MovieResponse;
 
         if (activeSearch) {
-          results = await searchMovies(activeSearch, page);
+          response = await searchMovies(activeSearch, page);
         } else if (selectedGenre) {
-          results = await getMoviesByGenre(selectedGenre, page);
+          response = await getMoviesByGenre(selectedGenre, page);
         } else {
-          results = await getPopularMovies(page);
+          response = await getPopularMovies(page);
         }
 
-        setMovies(results);
+        setMovies(response.results);
+        setTotalPages(Math.min(response.total_pages, 500));
       } catch (error) {
         console.error(error);
 
@@ -103,16 +106,7 @@ function Home() {
     <main>
       <h1>Movie Database</h1>
       <p>Discover popular movies and search for your favorites.</p>
-      <form className="movie-search" onSubmit={handleSearch}>
-        <input
-          type="text"
-          placeholder="Search for a movie"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
 
-        <button type="submit">Search</button>
-      </form>
       <select
         value={selectedGenre}
         onChange={(e) => {
@@ -128,6 +122,18 @@ function Home() {
           </option>
         ))}
       </select>
+
+      <form className="movie-search" onSubmit={handleSearch}>
+        <input
+          type="text"
+          placeholder="Search for a movie"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+
+        <button type="submit">Search</button>
+      </form>
+
       <section className="movie-grid">
         {movies.map((movie) => (
           <MovieCard 
@@ -140,16 +146,35 @@ function Home() {
       </section>
       <div className="pagination">
         <button
+          onClick={() => setPage(1)}
+          disabled={page === 1}
+        >
+          First Page
+        </button>
+        
+        <button
           onClick={() => setPage(page - 1)}
           disabled={page === 1}
         >
           Previous
         </button>
 
-        <span>Page {page}</span>
+        <span>
+          Page {page} of {totalPages}
+        </span>
 
-        <button onClick={() => setPage(page + 1)}>
+        <button 
+          onClick={() => setPage(page + 1)}
+          disabled={page >= totalPages}
+        >
           Next
+        </button>
+
+        <button 
+          onClick={() => setPage(totalPages)}
+          disabled={page >= totalPages}
+        >
+          Last Page
         </button>
       </div>
     </main>
