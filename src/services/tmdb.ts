@@ -1,4 +1,5 @@
 import type { Movie } from "../types/Movie";
+import type { Genre } from "../types/Genre";
 
 const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
 
@@ -60,4 +61,47 @@ export async function getMovieDetails(id: string): Promise<Movie> {
   }
 
   return response.json();
+}
+
+export async function getMovieGenres(): Promise<Genre[]> {
+  const response = await fetch(
+    "https://api.themoviedb.org/3/genre/movie/list",
+    {
+      headers: {
+        Authorization: `Bearer ${TMDB_TOKEN}`,
+        accept: "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch genres.");
+  }
+
+  const data = await response.json();
+
+  return data.genres;
+}
+
+export async function getMoviesByGenre(
+  genreId: string,
+  page: number = 1
+): Promise<Movie[]> {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}&page=${page}`,
+    {
+      headers: {
+        Authorization: `Bearer ${TMDB_TOKEN}`,
+        accept: "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch movies by genre.");
+  }
+
+  const data = await response.json();
+
+  return data.results;
 }
