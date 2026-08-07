@@ -107,6 +107,7 @@ function Home() {
     );
   }
 
+
   return (
     <main>
       <h1>Movie Database</h1>
@@ -139,49 +140,55 @@ function Home() {
         <button type="submit">Search</button>
       </form>
 
-      <section className="movie-grid">
-        {movies.map((movie) => (
-          <MovieCard 
-            key={movie.id} 
-            movie={movie} 
-            buttonText="❤️ Add to Favorites"
-            onButtonClick={handleAddToFavorites} 
-          />
-        ))}
-      </section>
-      <div className="pagination">
-        <button
-          onClick={() => setPage(1)}
-          disabled={page === 1}
-        >
-          First Page
-        </button>
+      {movies.length === 0 ? (
+        <p>No movies found.</p>
+      ) : (
+        <section className="movie-grid">
+          {movies.map((movie) => (
+            <MovieCard 
+              key={movie.id} 
+              movie={movie} 
+              buttonText="❤️ Add to Favorites"
+              onButtonClick={handleAddToFavorites} 
+            />
+          ))}
+        </section>
+      )}
+      {movies.length > 0 && (
+        <div className="pagination">
+          <button
+            onClick={() => setPage(1)}
+            disabled={page === 1}
+          >
+            First Page
+          </button>
 
-        <button
-          onClick={() => setPage(page - 1)}
-          disabled={page === 1}
-        >
-          Previous
-        </button>
+          <button
+            onClick={() => setPage(page - 1)}
+            disabled={page === 1}
+          >
+            Previous
+          </button>
 
-        <span>
-          Page {page} of {totalPages}
-        </span>
+          <span>
+            Page {page} of {totalPages}
+          </span>
 
-        <button 
-          onClick={() => setPage(page + 1)}
-          disabled={page >= totalPages}
-        >
-          Next
-        </button>
+          <button 
+            onClick={() => setPage(page + 1)}
+            disabled={page >= totalPages}
+          >
+            Next
+          </button>
 
-        <button 
-          onClick={() => setPage(totalPages)}
-          disabled={page >= totalPages}
-        >
-          Last Page
-        </button>
-      </div>
+          <button 
+            onClick={() => setPage(totalPages)}
+            disabled={page >= totalPages}
+          >
+            Last Page
+          </button>
+        </div>
+      )}
     </main>
   );
 }
