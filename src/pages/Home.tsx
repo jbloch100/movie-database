@@ -83,6 +83,12 @@ function Home() {
     setActiveSearch(trimmedSearch);
   }
 
+  const handleClearSearch = () => {
+    setSearchTerm("");
+    setActiveSearch("");
+    setPage(1);
+  };
+
   function handleAddToFavorites(movie: Movie) {
     addToFavorites(movie);
   }
@@ -138,6 +144,12 @@ function Home() {
         />
 
         <button type="submit">Search</button>
+
+        {activeSearch && (
+          <button type="button" onClick={handleClearSearch}>
+            Clear Search
+          </button>
+        )}
       </form>
 
       {movies.length === 0 ? (
