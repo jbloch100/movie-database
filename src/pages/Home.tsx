@@ -32,6 +32,11 @@ function Home() {
 
         if (activeSearch) {
           response = await searchMovies(activeSearch, page);
+          if (selectedGenre) {
+            response.results = response.results.filter((movie) =>
+              movie.genre_ids?.includes(Number(selectedGenre))
+            );
+          }
         } else if (selectedGenre) {
           response = await getMoviesByGenre(selectedGenre, page);
         } else {
@@ -151,7 +156,7 @@ function Home() {
         >
           First Page
         </button>
-        
+
         <button
           onClick={() => setPage(page - 1)}
           disabled={page === 1}

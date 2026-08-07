@@ -17,4 +17,6 @@ export type Movie = {
   status?: string;
 
   vote_count?: number;
+
+  genre_ids?: number[];
 };
