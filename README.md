@@ -6,7 +6,7 @@ Users can browse popular movies, search for movies, filter results by genre, vie
 
 ## 🌐 Live Demo
 
-Live demo coming soon.
+https://movie-database-six-delta.vercel.app
 
 ## ✨ Features
 
