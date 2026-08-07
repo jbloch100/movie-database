@@ -236,3 +236,53 @@ p {
     width: min(100%, 320px);
   }
 }
+
+@media (max-width: 600px) {
+  main {
+    padding: 24px 16px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  nav {
+    padding: 16px;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .movie-search {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .movie-search input {
+    width: auto;
+  }
+
+  .movie-search button {
+    width: 100%;
+  }
+
+  .movie-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pagination {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 20px 10px;
+  }
+
+  .pagination span {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    text-align: center;
+  }
+
+  .pagination button {
+    width: 100%;
+  }
+}
