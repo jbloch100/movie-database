@@ -1,75 +1,132 @@
-# React + TypeScript + Vite
+# 🎬 Movie Database
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive movie discovery application built with React and TypeScript using The Movie Database (TMDB) API.
 
-Currently, two official plugins are available:
+Users can browse popular movies, search for movies, filter results by genre, view detailed movie information, and save their favorite movies.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌐 Live Demo
 
-## React Compiler
+Live demo coming soon.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- Browse popular movies
+- Search for movies by title
+- Filter movies by genre
+- Combine movie search with genre filtering
+- View detailed information for each movie
+- Add and remove movies from favorites
+- Save favorites using localStorage
+- Navigate through movie results with pagination
+- Jump directly to the first or last page
+- Clear an active search
+- Handle searches with no results
+- Responsive design for desktop and mobile devices
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Technologies Used
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- React
+- TypeScript
+- Vite
+- React Router
+- TMDB API
+- CSS
+- localStorage
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/jbloch100/movie-database.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Navigate to the project
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+cd movie-database
 ```
+
+### 3. Install dependencies
+
+```bash
+npm install
+```
+
+### 4. Create an environment file
+
+Create a .env file in the root of the project and add
+
+```bash
+VITE_TMDB_TOKEN=your_tmdb_api_token
+```
+
+You will need a TMDB API token to run the application.
+
+### 5. Start the development server
+
+```bash
+npm run dev
+```
+
+## 📁 Project Structure
+
+```text
+src/
+├── components/
+│   └── MovieCard.tsx
+├── pages/
+│   ├── Home.tsx
+│   ├── Favorites.tsx
+│   └── MovieDetails.tsx
+├── services/
+│   ├── tmdb.ts
+│   └── favorites.ts
+├── types/
+│   ├── Movie.ts
+│   ├── Genre.ts
+│   └── MovieResponse.ts
+├── App.tsx
+├── App.css
+└── main.tsx
+```
+
+## 🧠 What I Learned
+
+While building this project, I practiced:
+
+- Fetching and displaying data from a REST API
+- Working with asynchronous JavaScript using async/await
+- Managing state with React hooks
+- Using useEffect for API requests
+- Creating reusable React components with TypeScript
+- Implementing dynamic routes with React Router
+- Managing URL parameters with useParams
+- Handling loading and error states
+- Saving and retrieving data with localStorage
+- Refactoring shared logic into reusable services
+- Implementing pagination
+- Filtering and searching API data
+- Building responsive layouts with CSS media queries
+
+## 📸 Screenshots
+
+### Home Page
+
+![Movie Database Home Page](./screenshots/home.png)
+
+### Movie Details
+
+![Movie Details Page](./screenshots/movie-details.png)
+
+### Favorites
+
+![Favorites Page](./screenshots/favorites.png)
+
+### Mobile View
+
+![Movie Database Mobile View](./screenshots/mobile.png)
+
+
